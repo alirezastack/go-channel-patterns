@@ -8,12 +8,15 @@ import (
 )
 
 // The bounded work pooling pattern uses a pool of Goroutines
-// to perform a FIXED amount of known work
+// to perform a FIXED amount of known work, it's a useful pattern for scenarios where
+// you want to control the level of concurrency, such as when making concurrent API requests
+// or processing a large number of tasks with limited resources.
 func main() {
 	// Right from the start, the function defines 2000 arbitrary pieces of work to perform.
 	work := []string{"paper", "paper", "paper", "paper", 2000: "paper"}
 
 	// Then the GOMAXPROCS function is used to define the number of child Goroutines to use in the pool.
+	// If n < 1, it does not change the current setting.
 	g := runtime.GOMAXPROCS(0)
 
 	// A WaitGroup is constructed to make sure the parent Goroutine can be told to wait until all 2000 pieces of work are completed.
